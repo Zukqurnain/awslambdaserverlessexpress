@@ -9,7 +9,6 @@
       "runtime": "nodejs12.x",
       "region": "us-east-1",
       "stage": "dev",
-      "variableSyntax": "\\${([^{}:]+?(?:\\(|:)(?:[^:{}][^{}]*?)?)}",
       "versionFunctions": true,
       "compiledCloudFormationTemplate": {
         "AWSTemplateFormatVersion": "2010-09-09",
@@ -174,9 +173,9 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/my-express-application/dev/1612942082023-2021-02-10T07:28:02.023Z/my-express-application.zip"
+                "S3Key": "serverless/my-express-application/dev/1623105169541-2021-06-07T22:32:49.541Z/my-express-application.zip"
               },
-              "Handler": "index.handler",
+              "Handler": "lambda.express",
               "Runtime": "nodejs12.x",
               "FunctionName": "my-express-application-dev-app",
               "MemorySize": 1024,
@@ -192,14 +191,14 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersionFTqCzsCxjq1kqbf8rVROEHyPDBRubhlfvNRNxo7QLnI": {
+          "AppLambdaVersionseaejYEw0dMUIf9oE9QxpELLFE8URpJXJLNnL0pe14": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "NPPq1DcwZRinaT3jZ1z+xuTD843pBpSBIfLGWtU7sdA="
+              "CodeSha256": "EgbJaRMLt3TLMedH4NXJfYuhGVjpNMsAJGhG/fOF0UU="
             }
           },
           "ApiGatewayRestApi": {
@@ -318,7 +317,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1612942079029": {
+          "ApiGatewayDeployment1623105165394": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -373,12 +372,18 @@
           "ServerlessDeploymentBucketName": {
             "Value": {
               "Ref": "ServerlessDeploymentBucket"
+            },
+            "Export": {
+              "Name": "sls-my-express-application-dev-ServerlessDeploymentBucketName"
             }
           },
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersionFTqCzsCxjq1kqbf8rVROEHyPDBRubhlfvNRNxo7QLnI"
+              "Ref": "AppLambdaVersionseaejYEw0dMUIf9oE9QxpELLFE8URpJXJLNnL0pe14"
+            },
+            "Export": {
+              "Name": "sls-my-express-application-dev-AppLambdaFunctionQualifiedArn"
             }
           },
           "ServiceEndpoint": {
@@ -402,6 +407,9 @@
                   "/dev"
                 ]
               ]
+            },
+            "Export": {
+              "Name": "sls-my-express-application-dev-ServiceEndpoint"
             }
           }
         }
@@ -490,10 +498,20 @@
       },
       "vpc": {}
     },
+    "custom": {
+      "apigwBinary": {
+        "types": [
+          "*/*"
+        ]
+      }
+    },
+    "plugins": [
+      "serverless-apigw-binary"
+    ],
     "pluginsData": {},
     "functions": {
       "app": {
-        "handler": "index.handler",
+        "handler": "lambda.express",
         "events": [
           {
             "http": "ANY /"
@@ -508,7 +526,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "AppLambdaVersionFTqCzsCxjq1kqbf8rVROEHyPDBRubhlfvNRNxo7QLnI"
+        "versionLogicalId": "AppLambdaVersionseaejYEw0dMUIf9oE9QxpELLFE8URpJXJLNnL0pe14"
       }
     },
     "configValidationMode": "warn",
@@ -518,6 +536,12 @@
       "service": {
         "$ref": "$[\"service\"][\"serviceObject\"]"
       },
+      "plugins": {
+        "$ref": "$[\"service\"][\"plugins\"]"
+      },
+      "custom": {
+        "$ref": "$[\"service\"][\"custom\"]"
+      },
       "provider": {
         "$ref": "$[\"service\"][\"provider\"]"
       },
@@ -526,10 +550,10 @@
       }
     },
     "isDashboardMonitoringPreconfigured": false,
-    "artifact": "D:\\Freelance\\my-express-application\\.serverless\\my-express-application.zip"
+    "artifact": "D:\\Freelance\\awslambdaserverlessexpress\\.serverless\\my-express-application.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/my-express-application/dev/1612942082023-2021-02-10T07:28:02.023Z",
+    "artifactDirectoryName": "serverless/my-express-application/dev/1623105169541-2021-06-07T22:32:49.541Z",
     "artifact": "my-express-application.zip"
   }
 }

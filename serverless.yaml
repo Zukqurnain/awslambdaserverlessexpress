@@ -2,6 +2,14 @@
 
 service: my-express-application
 
+plugins:
+ - serverless-apigw-binary
+
+custom:
+  apigwBinary:
+    types:           #list of mime-types
+      - '*/*'
+
 provider:
   name: aws
   runtime: nodejs12.x
@@ -9,7 +17,7 @@ provider:
 
 functions:
   app:
-    handler: index.handler
+    handler: lambda.express
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'
